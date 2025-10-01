@@ -7,7 +7,7 @@ pub struct UpdateUser<'info> {
     pub user: Signer<'info>,
     #[account(
         mut,
-        seeds = [b"user-account", user.key().as_ref()],
+        seeds = [b"user", user.key().as_ref()],
         bump = user_account.bump,
     )]
     pub user_account: Account<'info, UserAccount>,

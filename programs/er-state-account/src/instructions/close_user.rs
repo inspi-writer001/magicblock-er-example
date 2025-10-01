@@ -9,7 +9,7 @@ pub struct CloseUser<'info> {
     #[account(
         mut,
         close = user,
-        seeds = [b"user-account", user.key().as_ref()],
+        seeds = [b"user", user.key().as_ref()],
         bump = user_account.bump,
     )]
     pub user_account: Box<Account<'info, UserAccount>>,

@@ -26,11 +26,11 @@ describe("er-state-account", () => {
   const program = anchor.workspace.erStateAccount as Program<ErStateAccount>;
 
   const userAccount = anchor.web3.PublicKey.findProgramAddressSync(
-    [Buffer.from("user-account"), anchor.Wallet.local().publicKey.toBuffer()],
+    [Buffer.from("user"), anchor.Wallet.local().publicKey.toBuffer()],
     program.programId
   )[0];
 
-  xit("Is initialized!", async () => {
+  it("Is initialized!", async () => {
     // Add your test here.
     const tx = await program.methods.initialize().accountsPartial({
       user: anchor.Wallet.local().publicKey,
@@ -41,7 +41,7 @@ describe("er-state-account", () => {
     console.log("User Account initialized: ", tx);
   });
 
-  xit("Update State!", async () => {
+  it("Update State!", async () => {
     const tx = await program.methods.update(new anchor.BN(42)).accountsPartial({
       user: anchor.Wallet.local().publicKey,
       userAccount: userAccount,
@@ -50,12 +50,12 @@ describe("er-state-account", () => {
     console.log("\nUser Account State Updated: ", tx);
   });
 
-  xit("Delegate to Ephemeral Rollup!", async () => {
+  it("Delegate to Ephemeral Rollup!", async () => {
 
     let tx = await program.methods.delegate().accountsPartial({
       user: anchor.Wallet.local().publicKey,
       userAccount: userAccount,
-      validator: new PublicKey("MEUGGrYPxKk17hCr7wpT6s8dtNokZj5U2L57vjYMS8e"),
+      validator: new PublicKey("MAS1Dt9qreoRMQ14YQuhg8UTZMMzDdKhmkZMECCzk57"),
       systemProgram: anchor.web3.SystemProgram.programId,
     }).rpc({skipPreflight: true});
 
@@ -107,29 +107,17 @@ describe("er-state-account", () => {
     console.log("\nUser Account Undelegated: ", txHash);
   });
 
-  xit("Update State!", async () => {
+  it("Update State!", async () => {
     let tx = await program.methods.update(new anchor.BN(45)).accountsPartial({
       user: anchor.Wallet.local().publicKey,
       userAccount: userAccount,
     })
-    .transaction();
-
-    tx.feePayer = anchor.Wallet.local().publicKey;
-
-    const latestBlockhash = await providerEphemeralRollup.connection.getLatestBlockhash();
-    tx.recentBlockhash = latestBlockhash.blockhash;
-    tx = await providerEphemeralRollup.wallet.signTransaction(tx);
-    const txHash = await providerEphemeralRollup.sendAndConfirm(tx);
-    tx.feePayer = provider.wallet.publicKey;
-    const txCommitSgn = await GetCommitmentSignature(
-      txHash,
-      providerEphemeralRollup.connection
-  );
+    .rpc();
 
     console.log("\nUser Account State Updated: ", tx);
   });
 
-  xit("Close Account!", async () => {
+  it("Close Account!", async () => {
     const tx = await program.methods.close().accountsPartial({
       user: anchor.Wallet.local().publicKey,
       userAccount: userAccount,
