@@ -5,8 +5,9 @@ package_manager = "yarn"
 resolution = true
 skip-lint = false
 
-[programs.localnet]
-er_state_account = "9ChqoFDgVmmvD6Hcajv2JppVZ7S1qPDozrTw4V7q2yLP"
+[programs.devnet]
+er_state_account = "Cdh9uag3x6YkuXJfm7BYRWA5iTktArqwSoBUcwWeVPAW"
+
 
 [registry]
 url = "https://api.apr.dev"

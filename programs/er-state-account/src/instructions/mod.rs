@@ -15,3 +15,6 @@ pub use undelegate::*;
 
 pub mod close_user;
 pub use close_user::*;
+
+pub mod vrf_del_update;
+pub use vrf_del_update::*;

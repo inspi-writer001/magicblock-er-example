@@ -20,3 +20,14 @@ idl-build = ["anchor-lang/idl-build"]
 [dependencies]
 anchor-lang = { version = "0.31.1", features = ["init-if-needed"] }
 ephemeral-rollups-sdk = { version = "0.2.12", features = ["anchor"] }
+ephemeral-vrf-sdk = { version = "0.2.0", features = ["anchor"] }
+
+[dev-dependencies]
+litesvm = "0.7.1"
+solana-address = "1.0.0"
+solana-hash = "2.2.1"
+solana-instruction = "2.2.1"
+solana-pubkey = "2.2.1"
+solana-keypair = "2.2.1"
+solana-transaction = "2.2.1"
+solana-signer = "2.2.1"
